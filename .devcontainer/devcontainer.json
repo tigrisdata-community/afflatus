@@ -1,0 +1,51 @@
+{
+	"name": "Dev",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/xe/devcontainer-features/fish:0.2.0": {
+			"fisher": true
+		},
+		"ghcr.io/devcontainer-community/devcontainer-features/atuin.sh:1": {},
+		"ghcr.io/devcontainers-extra/features/neovim-apt-get:1": {},
+		"ghcr.io/jsburckhardt/devcontainer-features/uv:1": {}
+	},
+	"remoteEnv": {
+		"UV_PYTHON": "3.11"
+	},
+	// 👇 Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// 👇 Use 'postCreateCommand' to run commands after the container is created.
+	"initializeCommand": "mkdir -p ${localEnv:HOME}${localEnv:USERPROFILE}/.local/share/atuin",
+	"postCreateCommand": "bash .devcontainer/poststart.sh",
+	"mounts": [
+		{
+			"type": "bind",
+			"source": "${localEnv:HOME}${localEnv:USERPROFILE}/.local/share/atuin",
+			"target": "/home/vscode/.local/share/atuin"
+		},
+		{
+			"type": "bind",
+			"source": "${localEnv:HOME}${localEnv:USERPROFILE}/.claude",
+			"target": "/home/vscode/.claude"
+		},
+	],
+	"runArgs": [
+		"--platform=linux/amd64"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance"
+			]
+		}
+	}
+	// 👇 Configure tool-specific properties.
+	// "customizations": {},
+	// 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
