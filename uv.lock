@@ -20,7 +20,7 @@ dependencies = [
 requires-dist = [
     { name = "flask", specifier = ">=3.1.2" },
     { name = "flask-htmx", specifier = ">=0.4.0" },
-    { name = "pixeltable", specifier = ">=0.5.0" },
+    { name = "pixeltable", git = "https://github.com/pixeltable/pixeltable" },
 ]
 
 [[package]]
@@ -1262,8 +1262,8 @@ wheels = [
 
 [[package]]
 name = "pixeltable"
-version = "0.5.0"
-source = { registry = "https://pypi.org/simple" }
+version = "0.5.1.dev3+17e7923"
+source = { git = "https://github.com/pixeltable/pixeltable#17e7923a76aea78fe5477f61e1f5d517a63a9715" }
 dependencies = [
     { name = "aiohttp" },
     { name = "av" },
@@ -1297,9 +1297,6 @@ dependencies = [
     { name = "toml" },
     { name = "tqdm" },
     { name = "tzlocal" },
-]
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/3c/bf/38ba0c92a1764bf2e9b2c3d740999f0bbae39f2f1efb9c97b6472e9c90f8/pixeltable-0.5.0-py3-none-any.whl", hash = "sha256:53c804fe7cb94ad93fbaff580ef1bdc31401c74d3eafd28f239897bdd4bce426", size = 570416, upload-time = "2025-11-18T16:37:26.896Z" },
 ]
 
 [[package]]
