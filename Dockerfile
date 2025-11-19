@@ -33,7 +33,10 @@ USER app
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:$PORT/ || exit 1
+    CMD curl -f http://localhost:$PORT/healthz || exit 1
+
+VOLUME /data
+ENV PIXELTABLE_HOME=/data
 
 # Run the application with gunicorn
 CMD ["exec", "uv", "run", "gunicorn", "--bind", "0.0.0.0:$PORT", "--workers", "4", "--timeout", "120", "main:app"]
