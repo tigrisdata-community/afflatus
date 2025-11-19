@@ -7,5 +7,7 @@ htmx = HTMX(app)
 
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+def index():
+    if htmx:
+        return render_template("partials/index_content.html")
+    return render_template("pages/index.html")
