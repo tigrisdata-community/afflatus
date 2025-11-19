@@ -13,7 +13,10 @@ target "web" {
     "ghcr.io/tigrisdata-community/afflatus:latest",
     "ghcr.io/tigrisdata-community/afflatus:${GITHUB_SHA}"
   ]
-  platforms = ["linux/amd64", "linux/arm64"]
+  platforms = [
+    "linux/amd64",
+    #"linux/arm64",
+  ]
   cache-from = [
     "type=gha"
   ]
