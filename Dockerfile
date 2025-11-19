@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache-dir uv
 
 # Copy dependency files
-COPY pyproject.toml ./
+COPY pyproject.toml uv.lock ./
 
 # Install dependencies
 RUN uv sync --frozen --no-dev
@@ -39,4 +39,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:$PORT/ || exit 1
 
 # Run the application with gunicorn
-CMD exec uv run gunicorn --bind 0.0.0.0:$PORT --workers 4 --timeout 120 main:app
+CMD ["exec", "uv", "run", "gunicorn", "--bind", "0.0.0.0:$PORT", "--workers", "4", "--timeout", "120", "main:app"]
