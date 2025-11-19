@@ -1,0 +1,20 @@
+apiVersion: x.within.website/v1
+kind: App
+metadata:
+  name: afflatus
+
+spec:
+  image: ghcr.io/tigrisdata-community/afflatus:latest
+  autoUpdate: true
+
+  healthcheck:
+    enabled: true
+    path: /healthz
+
+  storage:
+    enabled: true
+    size: 32Gi
+
+  ingress:
+    enabled: true
+    host: afflatus.within.website
