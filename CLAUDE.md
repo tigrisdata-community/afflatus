@@ -17,6 +17,16 @@ The project uses `uv` for dependency management and Python virtual environments.
 - Flask-HTMX >=0.4.0
 - Pixeltable >=0.5.0
 
+#### Dependency documentation
+
+For help with Pixeltable, consult links at https://docs.pixeltable.com/llms.txt.
+
+For help with Flask, consult information at https://flask.palletsprojects.com/en/stable/.
+
+For help with HTMX, consult information at https://htmx.org/docs/.
+
+For help with Flask-HTMX, consult information at https://flask-htmx.readthedocs.io/en/latest/quickstart.html.
+
 ### Common Commands
 
 **Install dependencies:**
