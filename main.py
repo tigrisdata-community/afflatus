@@ -1,11 +1,16 @@
 import boto3
 import os
+import pixeltable as pxt
 from botocore.client import Config
 from dotenv import load_dotenv
 from flask import Flask, request, render_template, send_from_directory, redirect
 from flask_htmx import HTMX
 from openai import OpenAI
 from time import sleep
+from typing import cast
+
+# App-specific imports
+from app.chores import load_screenshots, search
 
 
 load_dotenv()
@@ -17,6 +22,9 @@ tigris3 = boto3.client(
     endpoint_url="https://t3.storage.dev",
     config=Config(s3={"addressing_style": "virtual"}),
 )
+screenshots = load_screenshots()
+assert screenshots is not None
+screenshots = cast(pxt.Table, screenshots)
 
 
 @app.route("/favicon.ico")
@@ -51,7 +59,12 @@ def api_search():
     if query == "":
         return render_template("partials/api/search_empty.html")
 
-    sleep(2)
+    results = search(screenshots, query)
+
+    for result in results:
+        print(result)
+        image = result["image"]
+        print(image.fileurl)
 
     return render_template(
         "partials/api/search.html",
