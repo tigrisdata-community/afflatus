@@ -1,7 +1,21 @@
 <center>
   {% for result in results %}
     <div style="display: inline; margin: 1rem">
-      <img style="max-width: 14rem" src="{{result.url}}"/>
+      <form
+        hx-post="/api/generate-image"
+        hx-target="#main-content"
+        hx-confirm="Is this what you desire?"
+        style="display: inline; margin: 0; padding: 0;"
+      >
+        <input type="hidden" name="result_id" value="{{result.id}}">
+        <input type="hidden" name="query" value="{{query}}">
+        <img
+          style="max-width: 14rem; cursor: pointer;"
+          src="{{result.url}}"
+          alt="Search result"
+          onclick="this.form.submit()"
+/>
+      </form>
     </div>
   {% endfor %}
 </center>

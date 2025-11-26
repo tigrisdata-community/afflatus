@@ -1,19 +1,28 @@
 <h1>Afflatus</h1>
-<p>Hello! This is an example page using <a href="https://github.com/tigrisdata-community/afflatus">Afflatus</a>
-</p>
-<p>A Flask-based web application with HTMX for dynamic frontend interactions and Pixeltable for data operations.</p>
 
-<blockquote>When in doubt, create another framework</blockquote>
+<input
+  class="form-control search"
+  style="margin-bottom: 2rem"
+  type="search"
+  name="q"
+  placeholder="What do you want to see?"
+  hx-post="/api/search"
+  hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
+  hx-target="#search-results"
+  hx-indicator=".htmx-indicator"
+  hx-on::before-request="document.getElementById('search-results').innerHTML = ''; document.getElementById('spinner').style.display = 'block';"
+  hx-on::after-request="document.getElementById('spinner').style.display = 'none';"
+/>
 
-<p>The project uses <code>uv</code> for dependency management and Python virtual environments.</p>
+<span class="htmx-indicator" id="spinner" style="display: none;">
+  <center>
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </center>
+</span>
 
-<p>Run the development server with: <code>uv run flask --app main run</code>
-</p>
-
-<button hx-get="/confirmed" hx-confirm="Some confirm text here">
-  Click Me
-</button>
-
-<footer>
-    <p>Available under the MIT license.</p>
-</footer>
+<div id="search-results"/>

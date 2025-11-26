@@ -1,17 +1,22 @@
+import boto3
 import os
-from flask import Flask, render_template, send_from_directory, redirect
+from botocore.client import Config
+from dotenv import load_dotenv
+from flask import Flask, request, render_template, send_from_directory, redirect
 from flask_htmx import HTMX
+from openai import OpenAI
 from time import sleep
 
 
+load_dotenv()
 app = Flask(__name__)
 htmx = HTMX(app)
-
-
-def simple_page(name):
-    if htmx:
-        return render_template(f"partials/{name}.html")
-    return render_template(f"pages/{name}.html")
+oai = OpenAI()
+tigris3 = boto3.client(
+    "s3",
+    endpoint_url="https://t3.storage.dev",
+    config=Config(s3={"addressing_style": "virtual"}),
+)
 
 
 @app.route("/favicon.ico")
@@ -30,12 +35,9 @@ def healthz():
 
 @app.route("/")
 def index():
-    return simple_page("index")
-
-
-@app.route("/search")
-def search():
-    return simple_page("search")
+    if htmx:
+        return render_template("partials/index.html")
+    return render_template("pages/index.html")
 
 
 @app.route("/api/search", methods=["POST"])
@@ -44,10 +46,16 @@ def api_search():
         return redirect("/search")
 
     # Search pixeltable
+    query = request.form.get("q", "")
+
+    if query == "":
+        return render_template("partials/api/search_empty.html")
+
     sleep(2)
 
     return render_template(
         "partials/api/search.html",
+        query=query,
         results=[
             {
                 "id": "image1",
