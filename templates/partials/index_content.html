@@ -1,36 +1,18 @@
 <h1>Afflatus</h1>
-<p>Hello! This is an example page using <a href="https://github.com/tigrisdata-community/afflatus">Afflatus</a></p>
+<p>Hello! This is an example page using <a href="https://github.com/tigrisdata-community/afflatus">Afflatus</a>
+</p>
 <p>A Flask-based web application with HTMX for dynamic frontend interactions and Pixeltable for data operations.</p>
 
 <blockquote>When in doubt, create another framework</blockquote>
 
-<ul>
-    <li>Flask >=3.1.2</li>
-    <li>Flask-HTMX >=0.4.0</li>
-    <li>Pixeltable >=0.5.0</li>
-    <li>Python >=3.11</li>
-</ul>
-
-<code><pre>
-from flask import Flask, render_template
-from flask_htmx import HTMX
-
-app = Flask(__name__)
-htmx = HTMX(app)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
-</pre></code>
-
-<p>Select this text to see what happens!</p>
-
 <p>The project uses <code>uv</code> for dependency management and Python virtual environments.</p>
 
-<p>Run the development server with: <code>uv run python main.py</code></p>
+<p>Run the development server with: <code>uv run flask --app main run</code>
+</p>
+
+<button hx-get="/confirmed" hx-confirm="Some confirm text here">
+  Click Me
+</button>
 
 <footer>
     <p>Available under the MIT license.</p>
