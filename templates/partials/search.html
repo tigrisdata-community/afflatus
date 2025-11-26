@@ -1,0 +1,30 @@
+<h1>Search</h1>
+
+<p>Find inspiration and commit it to the canvas!</p>
+
+<input
+  class="form-control search"
+  style="margin-bottom: 2rem"
+  type="search"
+  name="q"
+  placeholder="What do you want to see?"
+  hx-post="/api/search"
+  hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
+  hx-target="#search-results"
+  hx-indicator=".htmx-indicator"
+  hx-on::before-request="document.getElementById('search-results').innerHTML = ''; document.getElementById('spinner').style.display = 'block';"
+  hx-on::after-request="document.getElementById('spinner').style.display = 'none';"
+/>
+
+<span class="htmx-indicator" id="spinner" style="display: none;">
+  <center>
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </center>
+</span>
+
+<div id="search-results"/>
