@@ -1,0 +1,187 @@
+/* SweetAlert 2 styles matching the existing theme */
+
+/* CSS Custom Properties for theme variables */
+:root {
+  --swal2-bg: #1d2021;
+  --swal2-border: #3c3836;
+  --swal2-text: #f9f5d7;
+  --swal2-text-secondary: #ebdbb2;
+  --swal2-input-bg: #282828;
+  --swal2-input-border: #665c54;
+  --swal2-focus-color: #b16286;
+  --swal2-confirm-bg: #b16286;
+  --swal2-cancel-bg: #665c54;
+  --swal2-deny-bg: #9d0006;
+  --swal2-error-bg: #9d0006;
+  --swal2-close-color: #bdae93;
+  --swal2-close-hover: #d65d0e;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --swal2-bg: #f9f5d7;
+    --swal2-border: #ebdbb2;
+    --swal2-text: #1d2021;
+    --swal2-text-secondary: #3c3836;
+    --swal2-input-bg: #fbf1c7;
+    --swal2-input-border: #928374;
+  }
+}
+
+/* Higher specificity selectors to override SweetAlert styles */
+body .swal2-container.swal2-center > .swal2-popup {
+  background-color: var(--swal2-bg);
+  border: 1px solid var(--swal2-border);
+  border-radius: 0.25rem;
+  color: var(--swal2-text);
+  font-family: "Iosevka Aile Iaso", sans-serif;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+body .swal2-popup .swal2-title {
+  color: var(--swal2-text);
+  font-family: "Podkova", serif;
+  margin-bottom: 0.1rem;
+}
+
+body .swal2-popup .swal2-html-container {
+  font-size: 1rem;
+  font-family: "Iosevka Aile Iaso", sans-serif;
+  color: var(--swal2-text-secondary);
+}
+
+/* Input fields with higher specificity */
+body .swal2-popup .swal2-input,
+body .swal2-popup .swal2-textarea,
+body .swal2-popup .swal2-file-input {
+  background-color: var(--swal2-input-bg);
+  border: 1px solid var(--swal2-input-border);
+  color: var(--swal2-text);
+  border-radius: 0.25rem;
+  font-family: "Iosevka Aile Iaso", sans-serif;
+}
+
+body .swal2-popup .swal2-input:focus,
+body .swal2-popup .swal2-textarea:focus,
+body .swal2-popup .swal2-file-input:focus {
+  border-color: var(--swal2-focus-color);
+  box-shadow: 0 0 0 0.2rem rgba(177, 98, 134, 0.25);
+}
+
+/* Buttons with higher specificity */
+body .swal2-popup .swal2-actions .swal2-confirm,
+body .swal2-popup .swal2-actions .swal2-cancel,
+body .swal2-popup .swal2-actions .swal2-deny {
+  background-color: var(--swal2-confirm-bg);
+  color: var(--swal2-text);
+  border: none;
+  border-radius: 0.25rem;
+  font-family: "Iosevka Aile Iaso", sans-serif;
+  font-weight: normal;
+  padding: 0.5rem 1rem;
+}
+
+body .swal2-popup .swal2-actions .swal2-cancel {
+  background-color: var(--swal2-cancel-bg);
+}
+
+body .swal2-popup .swal2-actions .swal2-deny {
+  background-color: var(--swal2-deny-bg);
+}
+
+body .swal2-popup .swal2-actions .swal2-confirm:hover,
+body .swal2-popup .swal2-actions .swal2-cancel:hover,
+body .swal2-popup .swal2-actions .swal2-deny:hover {
+  opacity: 0.8;
+}
+
+/* Validation message */
+body .swal2-popup .swal2-validation-message {
+  background-color: var(--swal2-error-bg);
+  color: var(--swal2-text);
+  font-family: "Iosevka Aile Iaso", sans-serif;
+}
+
+/* Select dropdown */
+body .swal2-popup .swal2-select {
+  background-color: var(--swal2-input-bg);
+  border: 1px solid var(--swal2-input-border);
+  color: var(--swal2-text);
+  border-radius: 0.25rem;
+  font-family: "Iosevka Aile Iaso", sans-serif;
+}
+
+body .swal2-popup .swal2-select:focus {
+  border-color: var(--swal2-focus-color);
+  box-shadow: 0 0 0 0.2rem rgba(177, 98, 134, 0.25);
+}
+
+/* Checkbox and radio buttons */
+body .swal2-popup .swal2-checkbox {
+  background-color: var(--swal2-input-bg);
+  border: 1px solid var(--swal2-input-border);
+  border-radius: 0.25rem;
+}
+
+body .swal2-popup .swal2-radio input[type="radio"] {
+  background-color: var(--swal2-input-bg);
+  border: 1px solid var(--swal2-input-border);
+}
+
+body .swal2-popup .swal2-range input {
+  background-color: var(--swal2-input-bg);
+}
+
+/* Close button */
+body .swal2-popup .swal2-close {
+  color: var(--swal2-close-color);
+  font-size: 1.5rem;
+}
+
+body .swal2-popup .swal2-close:hover {
+  color: var(--swal2-close-hover);
+}
+
+/* Progress steps */
+body .swal2-popup .swal2-progress-steps .swal2-progress-step {
+  background-color: var(--swal2-focus-color);
+}
+
+body .swal2-popup .swal2-progress-steps .swal2-progress-step-line {
+  background-color: var(--swal2-cancel-bg);
+}
+
+/* Icon styles with higher specificity */
+body .swal2-popup .swal2-icon {
+  border: none;
+}
+
+body .swal2-popup .swal2-icon.swal2-success {
+  border-color: #79740e;
+  color: #79740e;
+}
+
+body .swal2-popup .swal2-icon.swal2-error {
+  border-color: #9d0006;
+  color: #9d0006;
+}
+
+body .swal2-popup .swal2-icon.swal2-warning {
+  border-color: #b57614;
+  color: #b57614;
+}
+
+body .swal2-popup .swal2-icon.swal2-info {
+  border-color: #076678;
+  color: #076678;
+}
+
+body .swal2-popup .swal2-icon.swal2-question {
+  border-color: #458588;
+  color: #458588;
+}
+
+/* Footer/actions container */
+body .swal2-popup .swal2-actions {
+  margin-top: 1rem;
+}
