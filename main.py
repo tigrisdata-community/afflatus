@@ -2,7 +2,9 @@ import base64
 import boto3
 import os
 import pixeltable as pxt
+import PIL.Image
 from botocore.client import Config
+from datasets import load_dataset
 from dotenv import load_dotenv
 from flask import Flask, request, render_template, send_from_directory, redirect
 from flask_htmx import HTMX
@@ -40,7 +42,7 @@ screenshots = cast(pxt.Table, screenshots)
 
 
 @pxt.query
-def get_image(image_id: str) -> PIL.Image.Image:
+def get_image(image_id: str) -> Image.Image:
     return (
         screenshots.where(screenshots.uuid == image_id)
         .select(screenshots.image)
@@ -54,9 +56,9 @@ def encode_image(file_path):
     return base64_image
 
 
-@pxt.udf
-def image_edit(prompt: str, input: PIL.Image.Image) -> PIL.Image.Image:
-    pass
+# @pxt.udf
+# def image_edit(prompt: str, input: PIL.Image.Image) -> PIL.Image.Image:
+#     pass
 
 
 generated_images = pxt.create_table(
