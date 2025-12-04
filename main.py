@@ -12,6 +12,7 @@ from openai import OpenAI
 from typing import cast
 from urllib.parse import urlparse
 from uuid_extensions import uuid7
+from pixeltable.functions.huggingface import clip
 
 load_dotenv()
 oai = OpenAI()
@@ -21,17 +22,26 @@ oai = OpenAI()
 def gen_uuid() -> str:
     return str(uuid7())
 
-
 def import_screenshots():
-    dataset = load_dataset("XeIaso/switch-screenshots")
-    screenshots = pxt.create_table("screenshots", source=dataset)
+    data_files = "s3://xe-zohar-copy/ds/screenshots_sharded/*.parquet"
+    storage_options={"profile": "tigris-dev"}
+
+    dataset = load_dataset(
+        "parquet",
+        split="train",
+        data_files=data_files,
+        streaming=False,
+        storage_options=storage_options,
+        if_exists="ignore",
+    )
+    screenshots = pxt.create_table("screenshots", source=dataset, if_exists="ignore")
     screenshots.add_embedding_index(
         "image",
         embedding=clip.using(model_id="openai/clip-vit-large-patch14"),
+        if_exists="replace"
     )
-    screenshots.add_computed_column(uuid=gen_uuid())
+    screenshots.add_computed_column(uuid=gen_uuid(), if_exists="ignore")
     return screenshots
-
 
 try:
     screenshots = pxt.get_table("screenshots")
@@ -42,7 +52,7 @@ screenshots = cast(pxt.Table, screenshots)
 
 
 @pxt.query
-def get_image(image_id: str) -> Image.Image:
+def get_image(image_id: str) -> PIL.Image.Image:
     return (
         screenshots.where(screenshots.uuid == image_id)
         .select(screenshots.image)
@@ -72,9 +82,10 @@ generated_images = pxt.create_table(
 assert generated_images is not None, (
     "creating the table did not result in creating the table"
 )
-generated_images.add_computed_column(uuid=gen_uuid())
+generated_images.add_computed_column(uuid=gen_uuid(), if_exists="ignore")
 generated_images.add_computed_column(
-    input_image=get_image(generated_images.input_image_id)
+    input_image=get_image(generated_images.input_image_id),
+    if_exists="ignore",
 )
 # generated_images.add_computed_column(
 #     gen_image=image_generations(generated_images.prompt, model="gpt-image-1")
